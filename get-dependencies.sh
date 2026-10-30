@@ -6,24 +6,24 @@ ARCH=$(uname -m)
 
 echo "Installing package dependencies..."
 echo "---------------------------------------------------------------"
-# pacman -Syu --noconfirm PACKAGESHERE
+pacman -Syu --noconfirm boost gtest lua51 sdl2_mixer xerces-c
 
 echo "Installing debloated packages..."
 echo "---------------------------------------------------------------"
-get-debloated-pkgs --add-common --prefer-nano
+get-debloated-pkgs --add-common --prefer-nano libdecor-mini sdl2_image-mini
 
-# Comment this out if you need an AUR package
-#make-aur-package PACKAGENAME
+echo "Building Shadow of the Wyrm..."
+echo "---------------------------------------------------------------"
+REPO="https://github.com/prolog/shadow-of-the-wyrm"
+VERSION="$(git ls-remote "$REPO" HEAD | cut -c 1-9 | head -1)"
+git clone --depth 1 "$REPO" ./sotw
+echo "$VERSION" > ~/version
 
-# If the application needs to be manually built that has to be done down here
+wget https://www.shadowofthewyrm.org/assets/ShadowOfTheWyrm-assets.zip
 
-# if you also have to make nightly releases check for DEVEL_RELEASE = 1
-#
-# if [ "${DEVEL_RELEASE-}" = 1 ]; then
-# 	nightly build steps
-# else
-# 	regular build steps
-# fi
-
-# Note that when building manually, you want to output the version of the
-# application to a ~/version file and remove VERSION from make-appimage.sh
+mkdir -p ./AppDir/bin
+# Put the assets in the right folder
+cp -R ../assets ./
+sed -i 's/"boost_system",//g' ${srcdir}/shadow-of-the-wyrm/premake5.lua
+premake5 --lua_include=/usr/include/lua5.1 --lua_link=lua5.1 gmake
+make -j$(nproc) config=release
