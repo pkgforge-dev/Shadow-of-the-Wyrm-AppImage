@@ -1,0 +1,12 @@
+[Desktop Entry]
+Name=Shadow Of The Wyrm
+GenericName=SOTW
+Type=Application
+Comment=A single player, traditional roguelike by Julian Day.
+Icon=sotw
+Exec=sotw
+Terminal=false
+StartupWMClass=
+SartupNotify=false
+Keywords=game;roguelike;
+Categories=Game;
