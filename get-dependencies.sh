@@ -10,7 +10,7 @@ pacman -Syu --noconfirm boost gtest lua51 sdl2_mixer xerces-c
 
 echo "Installing debloated packages..."
 echo "---------------------------------------------------------------"
-get-debloated-pkgs --add-common --prefer-nano sdl2_image-mini
+get-debloated-pkgs --add-common --prefer-nano libdecor-mini sdl2_image-mini
 
 echo "Building Shadow of the Wyrm..."
 echo "---------------------------------------------------------------"
