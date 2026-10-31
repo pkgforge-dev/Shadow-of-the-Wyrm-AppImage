@@ -1,0 +1,11 @@
+#!/bin/sh
+
+gamedir="$DATADIR"/shadow-of-the-wyrm-appimage
+mkdir -p "$gamedir"/logs
+cd "$gamedir"
+
+for f in assets data scripts texts swyrm.ini shadowofthewyrmtext_blank.ini shadowofthewyrmtext_en.ini; do
+	ln -sfn "$APPDIR"/bin/"$f" ./"$f"
+done
+
+exec "$APPDIR"/bin/sotw "$@"
